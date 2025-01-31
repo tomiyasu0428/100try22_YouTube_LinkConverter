@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Shorts Link Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>YouTube Shorts Link Converter</h2>
+    <form method="post">
+        <input type="text" name="url" placeholder="https://www.youtube.com/shorts/XXXX" required>
+        <button type="submit">変換</button>
+    </form>
+    {% if converted_url %}
+    <div class="result">
+        <span>変換後のURL: </span>
+        <a id="converted-url" href="{{ converted_url }}" target="_blank">{{ converted_url }}</a>
+        <button class="copy-button" onclick="copyToClipboard()">コピー</button>
+    </div>
+    {% endif %}
+
+    <script>
+        function copyToClipboard() {
+            const urlElement = document.getElementById("converted-url");
+            navigator.clipboard.writeText(urlElement.textContent)
+                .then(() => alert("URLをコピーしました！"))
+                .catch(err => console.error('コピーに失敗しました:', err));
+        }
+    </script>
+</body>
+</html>
